@@ -1,6 +1,9 @@
+<style lang="less">
+    @import 'add/article-add.less';
+</style>
 <template>
     <div>
-        <Card>
+        <Card v-show="articleList">
             <p slot="title">
                 <Icon type="compose"></Icon>
                 文章列表
@@ -14,12 +17,14 @@
                 </FormItem>
                 <FormItem prop="status">
                     <Select v-model="article.status" style="width:200px">
-                        <Option v-for="item in status" :value="item.value" :key="item.value">{{ item.text }}</Option>
+                        <Option v-for="item in status" :value="item.value" :key="item.value">{{ item.text }}
+                        </Option>
                     </Select>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" @click="handleSubmit('article')">搜索</Button>
+                    <Button type="primary" @click="handleSubmit('article')">查询</Button>
                     <Button type="ghost" @click="reset('article')">清除</Button>
+                    <Button type="info" @click="addShow()">添加</Button>
                 </FormItem>
             </Form>
 
@@ -30,14 +35,25 @@
                 </div>
             </div>
         </Card>
+
+        <Card v-show="!articleList">
+            <p slot="title">
+                <Icon type="compose"></Icon>
+                添加文章
+            </p>
+            <article-add></article-add>
+        </Card>
     </div>
 </template>
 
 <script>
+    import ArticleAdd from 'add/article-add'
+
     export default {
-        name: 'page1',
+        name: 'articleList',
         data: function () {
             return {
+                articleList: true,
                 article: {
                     user: '',
                     password: ''
@@ -137,7 +153,13 @@
 
             reset: function (name) {
                 this.$refs[name].resetFields();
+            },
+            addShow: function () {
+                this.articleList = false;
             }
+        },
+        components: {
+            ArticleAdd
         }
     }
     ;
