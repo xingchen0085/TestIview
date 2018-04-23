@@ -47,6 +47,7 @@
 </template>
 
 <script>
+
     import ArticleAdd from 'add/article-add'
 
     export default {
