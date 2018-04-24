@@ -50,7 +50,7 @@ export const otherRouter = {
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
     {
-        path: '/group',
+        path: '/data',
         icon: 'ios-folder',
         name: 'data',
         title: '数据管理',
@@ -61,21 +61,21 @@ export const appRouter = [
                 icon: 'compose',
                 name: 'article',
                 title: '文章管理',
-                component: resolve => { require(['@/views/group/page1/page1.vue'], resolve); }
+                component: resolve => { require(['@/views/data/article/articleList.vue'], resolve); }
             },
             {
                 path: 'message',
                 icon: 'ios-list-outline',
                 name: 'message',
                 title: '留言管理',
-                component: resolve => { require(['@/views/group/page2/page2.vue'], resolve); }
+                component: resolve => { require(['@/views/data/page2/page2.vue'], resolve); }
             },
 			{
                 path: 'comment',
                 icon: 'ios-list-outline',
                 name: 'comment',
                 title: '评论管理',
-                component: resolve => { require(['@/views/group/page2/page2.vue'], resolve); }
+                component: resolve => { require(['@/views/data/page2/page2.vue'], resolve); }
             }
         ]
     },

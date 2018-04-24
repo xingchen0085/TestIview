@@ -1,6 +1,4 @@
-<style lang="less">
-    @import 'add/article-add.less';
-</style>
+
 <template>
     <div>
         <Card v-show="articleList">
@@ -48,7 +46,7 @@
 
 <script>
 
-    import ArticleAdd from 'add/article-add'
+    import ArticleAdd from './add/article-add.vue'
 
     export default {
         name: 'articleList',
