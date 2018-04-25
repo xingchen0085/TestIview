@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <Card v-show="articleList">
@@ -25,8 +24,8 @@
                     <Button type="info" @click="addShow()">添加</Button>
                 </FormItem>
             </Form>
-
-            <Table :columns="columnsN" :data="dataN"></Table>
+            <can-edit-table refs="articleListTable" @on-delete="handleDel" v-model="tableData"
+                            :columns-list="columnsList"></can-edit-table>
             <div style="margin: 10px;overflow: hidden">
                 <div style="float: right;">
                     <Page :total="100" :current="1"></Page>
@@ -47,6 +46,7 @@
 <script>
 
     import ArticleAdd from './add/article-add.vue'
+    import CanEditTable from '../../my-components/table/can-edit-table.vue'
 
     export default {
         name: 'articleList',
@@ -71,21 +71,20 @@
                         text: '已发布'
                     }
                 ],
-                columnsN: [
+                columnsList: [
                     {title: "编号", key: "id"},
-                    {title: "标题", key: "title"},
-                    {title: "主题", key: "subject"},
-                    {title: "页面地址", key: "url"},
+                    {title: "标题", key: "title", editable: true},
+                    {title: "主题", key: "subject",editable: true},
+                    {title: "页面地址", key: "url",editable: true},
                     {title: "开始时间", key: "createTime"},
-                    {title: "操作", key: "o"}],
-                dataN: [
+                    {title: "操作", key: "handle", handle: ['edit', 'delete']}],
+                tableData: [
                     {
                         id: "1",
                         title: "测试文章1",
                         subject: "测试1",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                     {
                         id: "2",
@@ -93,7 +92,6 @@
                         subject: "测试2",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                     {
                         id: "3",
@@ -101,7 +99,6 @@
                         subject: "测试3",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                     {
                         id: "4",
@@ -109,7 +106,6 @@
                         subject: "测试4",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                     {
                         id: "5",
@@ -117,7 +113,6 @@
                         subject: "测试5",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                     {
                         id: "6",
@@ -125,7 +120,6 @@
                         subject: "测试6",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                     {
                         id: "7",
@@ -133,7 +127,6 @@
                         subject: "测试7",
                         url: "/20180421/1.html",
                         createTime: "2018-04-21",
-                        o: "-"
                     },
                 ]
             }
@@ -151,14 +144,19 @@
             ,
 
             reset: function (name) {
+                this.$Message.info(name)
                 this.$refs[name].resetFields();
             },
             addShow: function () {
                 this.articleList = false;
-            }
+            },
+            handleDel(val, index) {
+                this.$Message.success('删除了第' + (index + 1) + '行数据');
+            },
         },
         components: {
-            ArticleAdd
+            ArticleAdd,
+            CanEditTable
         }
     }
     ;
