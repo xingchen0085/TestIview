@@ -45,28 +45,26 @@ export const page500 = {
     }
 };
 
-export const articlePreviewRouter = {
-    path: 'preview',
-    meta: {
-        title: '文章预览'
-    },
-    name: 'preview',
-    component: resolve => {
-        require(['@/views/data/article/add/article-preview.vue'], resolve);
-    }
-}
-
 // 作为Main组件的子页面展示但是不在左侧菜单显示的路由写在otherRouter里
 export const otherRouter = {
     path: '/',
     name: 'otherRouter',
     component: Main,
+    redirect: '/home',
     children: [
         {
-            path: 'home', title: {i18n: 'home'}, name: 'home_index', component: resolve => {
+            path: 'home', title: '首页', name: 'home_index', component: resolve => {
                 require(['@/views/home/home.vue'], resolve);
             }
         },
+        {
+            path: 'preview',
+            title: '预览',
+            name: 'preview',
+            component: resolve => {
+                require(['@/views/data/article/add/article-preview.vue'], resolve);
+            }
+        }
     ]
 };
 
@@ -74,14 +72,14 @@ export const otherRouter = {
 export const appRouter = [
     {
         path: '/system',
-        icon: 'ios-folder',
+        icon: 'android-settings',
         name: 'system',
         title: '系统管理',
         component: Main,
         children: [
             {
                 path: 'user',
-                icon: 'compose',
+                icon: 'person',
                 name: 'user',
                 title: '管理员管理',
                 component: resolve => {
@@ -90,7 +88,7 @@ export const appRouter = [
             },
             {
                 path: 'role',
-                icon: 'ios-list-outline',
+                icon: 'person-stalker',
                 name: 'role',
                 title: '角色管理',
                 component: resolve => {
@@ -99,7 +97,7 @@ export const appRouter = [
             },
             {
                 path: 'menu',
-                icon: 'ios-list-outline',
+                icon: 'grid',
                 name: 'menu',
                 title: '菜单管理',
                 component: resolve => {
@@ -108,7 +106,7 @@ export const appRouter = [
             },
             {
                 path: 'sql',
-                icon: 'ios-list-outline',
+                icon: 'stats-bars',
                 name: 'sql',
                 title: 'SQL监控',
                 component: resolve => {
@@ -117,7 +115,7 @@ export const appRouter = [
             },
             {
                 path: 'task',
-                icon: 'ios-list-outline',
+                icon: 'ios-timer',
                 name: 'task',
                 title: '定时任务',
                 component: resolve => {
@@ -127,7 +125,7 @@ export const appRouter = [
             ,
             {
                 path: 'param',
-                icon: 'ios-list-outline',
+                icon: 'ios-cog-outline',
                 name: 'param',
                 title: '参数管理',
                 component: resolve => {
@@ -136,29 +134,29 @@ export const appRouter = [
             }
             ,
             {
-                path: 'log',
-                icon: 'ios-list-outline',
-                name: 'lod',
-                title: '系统日志',
-                component: resolve => {
-                    require(['@/views/system/log/logList.vue'], resolve);
-                }
-            }
-            ,
-            {
                 path: 'file',
-                icon: 'ios-list-outline',
+                icon: 'ios-cloud-upload',
                 name: 'file',
                 title: '文件管理',
                 component: resolve => {
                     require(['@/views/system/file/fileList.vue'], resolve);
                 }
             }
+            ,
+            {
+                path: 'log',
+                icon: 'android-clipboard',
+                name: 'lod',
+                title: '系统日志',
+                component: resolve => {
+                    require(['@/views/system/log/logList.vue'], resolve);
+                }
+            }
         ]
     },
     {
         path: '/data',
-        icon: 'ios-folder',
+        icon: 'at',
         name: 'data',
         title: '数据管理',
         component: Main,
@@ -174,7 +172,7 @@ export const appRouter = [
             },
             {
                 path: 'message',
-                icon: 'ios-list-outline',
+                icon: 'android-contacts',
                 name: 'message',
                 title: '留言管理',
                 component: resolve => {
@@ -183,7 +181,7 @@ export const appRouter = [
             },
             {
                 path: 'comment',
-                icon: 'ios-list-outline',
+                icon: 'chatbubbles',
                 name: 'comment',
                 title: '评论管理',
                 component: resolve => {
@@ -215,6 +213,5 @@ export const routers = [
     ...appRouter,
     page500,
     page403,
-    page404,
-    articlePreviewRouter
+    page404
 ];

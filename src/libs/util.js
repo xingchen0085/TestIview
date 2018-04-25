@@ -3,24 +3,42 @@ import env from '../../build/env';
 import semver from 'semver';
 import packjson from '../../package.json';
 
-let util = {
-
-};
+let util = {};
 util.title = function (title) {
-    title = title || 'iView admin';
+    title = title || 'star-dust admin';
     window.document.title = title;
 };
 
 const ajaxUrl = env === 'development'
     ? 'http://127.0.0.1:8888'
     : env === 'production'
-    ? 'https://www.url.com'
-    : 'https://debug.url.com';
+        ? 'https://www.url.com'
+        : 'https://debug.url.com';
 
 util.ajax = axios.create({
     baseURL: ajaxUrl,
     timeout: 30000
 });
+
+util.testUrl = function () {
+    return ajaxUrl;
+};
+
+util.get = function (url) {
+    axios.get(url).then(function (respon) {
+        return respon;
+    }).catch(function (respon) {
+        console.error(respon);
+    })
+};
+
+util.post = function (url, config) {
+    axios.post(url, config).then(function (respon) {
+        return respon;
+    }).catch(function (respon) {
+        console.error(respon);
+    })
+};
 
 util.inOf = function (arr, targetArr) {
     let res = true;
@@ -190,7 +208,7 @@ util.setCurrentPath = function (vm, name) {
 
 util.openNewPage = function (vm, name, argu, query) {
     let pageOpenedList = vm.$store.state.app.pageOpenedList;
-	
+
     let openedPageLen = pageOpenedList.length;
 
     let i = 0;

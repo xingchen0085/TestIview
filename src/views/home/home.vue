@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "home.vue",
+        name: "home",
         methods:{
             showMsg:function(){
                 this.$Message.error("错误信息");
